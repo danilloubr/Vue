@@ -48,5 +48,8 @@ footer {
 
 .social-link img {
   width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
