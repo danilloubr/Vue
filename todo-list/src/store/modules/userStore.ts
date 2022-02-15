@@ -10,35 +10,41 @@ import store from "../../store";
 
 @Module({ dynamic: true, store, name: "userStore" })
 class UserStore extends VuexModule {
-  public todos: string[] = [];
+  public todos: any[] = [];
 
   @Mutation
   private ADD_TODO(todo: any) {
     this.todos.push(todo);
     console.log("TODOS STORE", this.todos);
   }
-  //   @Mutation
-  //   public REMOVE_TODO(state: string, todo: string) {
-  //     state.todos = state.todos?.filter((item) => item !== todo);
-  //   }
+  @Mutation
+  private REMOVE_TODO(todo: any) {
+    this.todos = this.todos.filter((item) => item !== todo);
+
+    console.log("THIS TODO - remove do store", this.todos);
+    console.log("TODO MUTATION REMOVE", todo);
+  }
 
   @Action
   addTodo(todo: any) {
+    console.log("TODO NA ACTION", todo);
+
     this.ADD_TODO(todo);
   }
 
-  @Action({ commit: "REMOVE_TODO" })
-  removeTodo(todo: string) {
-    return todo;
+  @Action
+  removeTodo(todo: any) {
+    console.log("TODO REMOVE", todo);
+    this.REMOVE_TODO(todo);
   }
 
   get lista() {
     return this.todos;
   }
 
-  set setList(todo: string) {
-    store.dispatch("addTodo", todo);
-  }
+  //   set setList(todo: string) {
+  //     store.dispatch("addTodo", todo);
+  //   }
 }
 
 export default UserStore;
